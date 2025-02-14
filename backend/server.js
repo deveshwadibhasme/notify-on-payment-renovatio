@@ -32,7 +32,7 @@ app.post('/add-to-database', async (req, res) => {
         const { name, amount, mobile, email } = req.body;
         const newPayment = new Payment({ name, amount, mobile, email });
 
-        await newPayment.save(); 
+        await newPayment.save();
 
         return res.status(201).json({ success: true, message: "Payment recorded!", data: newPayment });
     } catch (error) {
@@ -47,17 +47,17 @@ app.post("/send-notification", async (req, res) => {
     const message = `🙏 Dear ${name}, thank you for your generous donation of ₹${amount}. 
   Your support helps Renovation NGO continue its mission to create a better future! 🌍`;
 
-    // Email Setup
-    const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-            user: process.env.GMAIL_USER,
-            pass: process.env.GMAIL_PASS,
-        },
-    });
-
     try {
-        await transporter.sendMail({
+        // Email Setup
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.GMAIL_USER,
+                pass: process.env.GMAIL_PASS,
+            },
+        });
+
+        transporter.sendMail({
             from: process.env.GMAIL_USER,
             to: email,
             subject: "Renovation NGO - Donation Received",
