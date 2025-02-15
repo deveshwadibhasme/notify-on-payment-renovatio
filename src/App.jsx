@@ -10,6 +10,8 @@ function App() {
     email: "",
   });
 
+  const BackendURI = import.meta.env.VITE_API_BackendURI
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -17,13 +19,13 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${process.env.BackendURI}/add-to-database`, formData);
+      await axios.post(`${BackendURI}/add-to-database`, formData);
       setFormData({ name: "", amount: "", mobile: "", email: "" });
     } catch (error) {
       alert("Error sending data.");
     }
     try {
-      await axios.post(`${process.env.BackendURI}/send-notification`, formData);
+      await axios.post(`${BackendURI}/send-notification`, formData);
       setFormData({ name: "", amount: "", mobile: "", email: "" });
       alert("Notification Sent Successfully!");
     } catch (error) {

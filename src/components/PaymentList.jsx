@@ -3,8 +3,7 @@ import axios from 'axios';
 
 const PaymentList = () => {
     const [payments, setPayments] = useState([]);
-
-    const BackendURI = `process.env.BackendURI`
+    const BackendURI = import.meta.env.VITE_API_BackendURI
     useEffect( () => {
       axios.get(`${BackendURI}/payments-data`)
             .then(response => {
@@ -29,14 +28,14 @@ const PaymentList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {payments.length !== 0 ? payments.map((payment, index) => (
+                    {(payments.length !== 0) ? payments[0].data.map((payment, index) => (
                         <tr key={index}>
                             <td className="py-2 px-4 border-b">{payment.name}</td>
                             <td className="py-2 px-4 border-b">{payment.mobile}</td>
                             <td className="py-2 px-4 border-b">{payment.amount}</td>
                             <td className="py-2 px-4 border-b">{payment.email}</td>
                         </tr>
-                    )):''}
+                    )):<tr className='text-center'><td>Noting To See Here</td></tr>}
                 </tbody>
             </table>
         </div>
