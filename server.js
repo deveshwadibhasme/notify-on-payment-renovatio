@@ -76,5 +76,14 @@ app.post("/send-notification", async (req, res) => {
     }
 });
 
+app.get('/payments-data', async (req, res) => {
+    try {
+        const payments = await Payment.find();
+        return res.status(200).json({ success: true, data: payments });
+    } catch (error) {
+        return res.status(500).json({ success: false, message: error.message });
+    }
+});
+
 // Start Server
 app.listen(process.env.PORT, () => console.log("Server running on port 5000"));
