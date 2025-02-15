@@ -16,13 +16,13 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/add-to-database", formData);
+      await axios.post("https://notify-on-payment-renovatio-production.up.railway.app/add-to-database", formData);
       setFormData({ name: "", amount: "", mobile: "", email: "" });
     } catch (error) {
       alert("Error sending data.");
     }
     try {
-      await axios.post("http://localhost:5000/send-notification", formData);
+      await axios.post("https://notify-on-payment-renovatio-production.up.railway.app/send-notification", formData);
       setFormData({ name: "", amount: "", mobile: "", email: "" });
       alert("Notification Sent Successfully!");
     } catch (error) {
