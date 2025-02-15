@@ -44,8 +44,14 @@ app.post('/add-to-database', async (req, res) => {
 app.post("/send-notification", async (req, res) => {
     // Mail notification
     const { name, amount, mobile, email } = req.body;
-    const message = `🙏 Dear ${name}, thank you for your generous donation of ₹${amount}. 
-  Your support helps Renovation NGO continue its mission to create a better future! 🌍`;
+    const message = `<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
+  <div style="max-width: 600px; background: #ffffff; margin: 0 auto; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <h2 style="color: #2c3e50;">🙏 Dear ${name},</h2>
+    <p style="color: #555; font-size: 16px;">Thank you for your generous donation of <strong style="color: #27ae60;">₹${amount}</strong>.</p>
+    <p style="color: #555; font-size: 16px;">Your support helps <strong>Renovation NGO</strong> continue its mission to create a better future! 🌍</p>
+    <p style="color: #777; font-size: 14px; margin-top: 20px;">With gratitude, <br><strong>Renovation NGO Team</strong></p>
+  </div>
+</body>`;
 
     try {
         // Email Setup
@@ -61,7 +67,7 @@ app.post("/send-notification", async (req, res) => {
             from: process.env.GMAIL_USER,
             to: email,
             subject: "Renovation NGO - Donation Received",
-            text: message,
+            html: message,
         });
         console.log(`Notification should be sent to: ${name}`);
         return res.status(200).json({ success: true, message: "Notification Sent!" });
