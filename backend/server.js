@@ -4,9 +4,19 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
 const mongoose = require("mongoose");
-
 const app = express();
-app.use(cors());
+
+
+app.use(express.json());
+
+// Use CORS middleware
+app.use(cors({
+  origin: 'https://renovatiopaymentform.netlify.app', 
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
+  allowedHeaders: ['Content-Type', 'Authorization'], 
+  credentials: true, 
+  optionsSuccessStatus: 204
+}));
 app.use(bodyParser.json());
 
 
